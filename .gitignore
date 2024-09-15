@@ -1,4 +1,10 @@
+/venv/
+venv/
+/venv
+/.venv/
 /.venv
+.venv/
 /.idea/
 /IDs.py
+
 
