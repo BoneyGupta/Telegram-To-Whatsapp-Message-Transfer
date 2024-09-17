@@ -23,17 +23,25 @@ Building the Project:
    Installation instructions:
    - **Windows**: Download and run the get-pip.py script from https://bootstrap.pypa.io/get-pip.py.
    - **macOS/Linux**: Run the following command:
+     ```
      python3 -m pip install --upgrade pip
+     ```     
 
    After that, install the necessary libraries:
    - Install Playwright:
+     ```
      pip install playwright
+     ```    
 
    - Install Playwright browser binaries:
+     ```
      playwright install
+     ```     
 
    - Install Telethon:
+     ```
      pip install telethon
+     ```
 
 3) Add the `IDs.py` file to the project directory and fill it with the following values:
    api_id = 12345678 api_hash = "abc123abc123" bot_token = "xyz456xyz456" channel_id = -7654321 group_id = "abcxyzmno"
