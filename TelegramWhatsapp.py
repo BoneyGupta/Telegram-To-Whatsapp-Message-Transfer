@@ -50,7 +50,7 @@ def run():
 
 async def whatsapp(message, event_num):
     print("Whatsapp Playwright process")
-    time.sleep(event_num * 20)
+    time.sleep(10)
     async with async_playwright() as pw:
         browser = await pw.chromium.connect_over_cdp("http://localhost:9988")
         context = browser.contexts[0]
@@ -70,15 +70,30 @@ async def whatsapp(message, event_num):
         await page.keyboard.press("Escape")
 
 
+# @client.on(events.NewMessage)
+# async def handler(event):
+#     global event_number
+#     message_text = event.message.text
+#     event_number += 1
+#     print(f"New message detected: Event {event_number}, {message_text}")
+#     await whatsapp(message_text, event_number)
+#     event_number -= 1
+#     print("Event completed")
+
+# Add this at the top of your file
+lock = asyncio.Lock()
+
+
 @client.on(events.NewMessage)
 async def handler(event):
     global event_number
-    message_text = event.message.text
-    event_number += 1
-    print(f"New message detected: Event {event_number}, {message_text}")
-    await whatsapp(message_text, event_number)
-    event_number -= 1
-    print("Event completed")
+    async with lock:  # Ensure only one event is processed at a time
+        message_text = event.message.text
+        event_number += 1
+        print(f"New message detected: Event {event_number}, {message_text}")
+        await whatsapp(message_text, event_number)
+        event_number -= 1
+        print("Event completed")
 
 
 run()
